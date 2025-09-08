@@ -37,31 +37,46 @@ Com este sistema, é possível ligar e desligar dois LEDs conectados ao Arduino 
 
 ## 💻 Código Arduino
 
-```cpp
+// Inclui a biblioteca SoftwareSerial para permitir comunicação serial em outros pinos
 #include <SoftwareSerial.h>
 
+// Define os pinos usados para comunicação com o módulo Bluetooth
+// Pino 10 será o RX (recebe dados do Bluetooth)
+// Pino 11 será o TX (envia dados para o Bluetooth)
 SoftwareSerial bluetooth(10, 11); // RX, TX
+
+// Define os pinos onde os LEDs estão conectados
 const int led1 = 2;
 const int led2 = 3;
 
 void setup() {
+  // Define os pinos dos LEDs como saída
   pinMode(led1, OUTPUT);
   pinMode(led2, OUTPUT);
-  bluetooth.begin(9600); 
+
+  // Inicia a comunicação serial com o módulo Bluetooth
+  bluetooth.begin(9600); // A maioria dos módulos HC-05 usa 9600 bps
 }
 
 void loop() {
+  // Verifica se há dados recebidos via Bluetooth
   if (bluetooth.available()) {
+    // Lê o caractere recebido
     char comando = bluetooth.read();   
 
+    // Verifica qual comando foi recebido e executa a ação correspondente
     if (comando == '1') {
-      digitalWrite(led1, HIGH); // Liga LED1
+      // Liga o LED 1 (pino 2)
+      digitalWrite(led1, HIGH);
     } else if (comando == '2') {
-      digitalWrite(led1, LOW);  // Desliga LED1
+      // Desliga o LED 1 (pino 2)
+      digitalWrite(led1, LOW);
     } else if (comando == '3') {
-      digitalWrite(led2, HIGH); // Liga LED2
+      // Liga o LED 2 (pino 3)
+      digitalWrite(led2, HIGH);
     } else if (comando == '4') {
-      digitalWrite(led2, LOW);  // Desliga LED2
+      // Desliga o LED 2 (pino 3)
+      digitalWrite(led2, LOW);
     }
   }
 }
