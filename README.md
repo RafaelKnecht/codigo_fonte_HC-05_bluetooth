@@ -37,46 +37,66 @@ Com este sistema, é possível ligar e desligar dois LEDs conectados ao Arduino 
 
 ## 💻 Código Arduino
 
-// Inclui a biblioteca SoftwareSerial para permitir comunicação serial em outros pinos
+```cpp
+// Importa a biblioteca SoftwareSerial para comunicação serial em pinos alternativos
 #include <SoftwareSerial.h>
 
-// Define os pinos usados para comunicação com o módulo Bluetooth
-// Pino 10 será o RX (recebe dados do Bluetooth)
-// Pino 11 será o TX (envia dados para o Bluetooth)
-SoftwareSerial bluetooth(10, 11); // RX, TX
+// Define os pinos de comunicação com o módulo Bluetooth (RX, TX)
+SoftwareSerial bluetooth(10, 11); // RX ← Bluetooth TX | TX → Bluetooth RX
 
-// Define os pinos onde os LEDs estão conectados
+// Define os pinos conectados aos LEDs
 const int led1 = 2;
 const int led2 = 3;
 
 void setup() {
-  // Define os pinos dos LEDs como saída
+  // Configura os pinos dos LEDs como saída
   pinMode(led1, OUTPUT);
   pinMode(led2, OUTPUT);
 
-  // Inicia a comunicação serial com o módulo Bluetooth
-  bluetooth.begin(9600); // A maioria dos módulos HC-05 usa 9600 bps
+  // Inicia a comunicação serial com o módulo Bluetooth a 9600 baud
+  bluetooth.begin(9600); 
 }
 
 void loop() {
   // Verifica se há dados recebidos via Bluetooth
   if (bluetooth.available()) {
-    // Lê o caractere recebido
+    // Lê o caractere enviado pelo aplicativo Bluetooth
     char comando = bluetooth.read();   
 
-    // Verifica qual comando foi recebido e executa a ação correspondente
+    // Compara o comando recebido e executa a ação correspondente
     if (comando == '1') {
-      // Liga o LED 1 (pino 2)
-      digitalWrite(led1, HIGH);
+      digitalWrite(led1, HIGH); // Liga LED 1 (pino 2)
     } else if (comando == '2') {
-      // Desliga o LED 1 (pino 2)
-      digitalWrite(led1, LOW);
+      digitalWrite(led1, LOW);  // Desliga LED 1 (pino 2)
     } else if (comando == '3') {
-      // Liga o LED 2 (pino 3)
-      digitalWrite(led2, HIGH);
+      digitalWrite(led2, HIGH); // Liga LED 2 (pino 3)
     } else if (comando == '4') {
-      // Desliga o LED 2 (pino 3)
-      digitalWrite(led2, LOW);
+      digitalWrite(led2, LOW);  // Desliga LED 2 (pino 3)
     }
   }
 }
+📱 Comandos Bluetooth
+Use um aplicativo de terminal Bluetooth no seu celular e envie os seguintes comandos:
+
+Comando	Ação
+1	Liga LED 1
+2	Desliga LED 1
+3	Liga LED 2
+4	Desliga LED 2
+
+🛠️ Considerações
+Use um divisor de tensão no pino RX do módulo Bluetooth para evitar sobrecarga (o Arduino usa 5V, mas o Bluetooth trabalha com 3.3V).
+
+Certifique-se de que o módulo Bluetooth está pareado com o celular.
+
+A taxa de transmissão padrão do HC-05 é 9600 baud.
+
+O uso de SoftwareSerial evita conflito com a porta serial padrão (pinos 0 e 1), permitindo comunicação via USB ao mesmo tempo.
+
+📷 Imagens
+![WhatsApp Image 2025-09-08 at 08 37 55 (1)](https://github.com/user-attachments/assets/fb27e5f7-ebaa-4053-b839-1fdb82feaf33)
+![WhatsApp Image 2025-09-08 at 08 37 55](https://github.com/user-attachments/assets/b6873b54-6ac3-4354-be9b-5a4fc56269f5)
+https://github.com/user-attachments/assets/6dc5f39c-a02e-4793-aef2-7b223ed0e126
+
+
+
