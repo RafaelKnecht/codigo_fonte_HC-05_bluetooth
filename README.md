@@ -93,10 +93,7 @@ A taxa de transmissão padrão do HC-05 é 9600 baud.
 
 O uso de SoftwareSerial evita conflito com a porta serial padrão (pinos 0 e 1), permitindo comunicação via USB ao mesmo tempo.
 
-📷 Imagens
-![WhatsApp Image 2025-09-08 at 08 37 55 (1)](https://github.com/user-attachments/assets/fb27e5f7-ebaa-4053-b839-1fdb82feaf33)
-![WhatsApp Image 2025-09-08 at 08 37 55](https://github.com/user-attachments/assets/b6873b54-6ac3-4354-be9b-5a4fc56269f5)
-https://github.com/user-attachments/assets/6dc5f39c-a02e-4793-aef2-7b223ed0e126
+
 
 
 
